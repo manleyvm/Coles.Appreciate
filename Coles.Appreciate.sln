@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Coles.Appreciate.API", "Col
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Coles.Appreciate.Web", "Coles.Appreciate.Web\Coles.Appreciate.Web.csproj", "{58247793-DF7B-4E8F-BB60-B8B2650F5F55}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Coles.Appreciate.Domain", "Coles.Appreciate.Domain\Coles.Appreciate.Domain.csproj", "{10937A16-9DBE-4F9B-9593-3391A5FC2ACA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{58247793-DF7B-4E8F-BB60-B8B2650F5F55}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{58247793-DF7B-4E8F-BB60-B8B2650F5F55}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{58247793-DF7B-4E8F-BB60-B8B2650F5F55}.Release|Any CPU.Build.0 = Release|Any CPU
+		{10937A16-9DBE-4F9B-9593-3391A5FC2ACA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{10937A16-9DBE-4F9B-9593-3391A5FC2ACA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{10937A16-9DBE-4F9B-9593-3391A5FC2ACA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{10937A16-9DBE-4F9B-9593-3391A5FC2ACA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
