@@ -1,7 +1,7 @@
 
-function Response(ResponseId) {
+function Response(ResponseId,ResponseText) {
     this.ResponseId = ResponseId;
-
+    this.ResponseText = ResponseText || null;
 }
 
 function Person(UserId, FullName) {
@@ -38,7 +38,24 @@ var vm = function(){
 
 
     }
-    
+
+    self.getResponses = function () {
+        let url = "http://localhost:49930/api/v1/config/big"
+        $.get(url, function (resp) {
+
+            self.responses().length = 0;
+            ko.utils.arrayForEach(resp, function (rs) {
+                self.responses.push(new Response(rs.ResponseId, rs.ResponseText))
+            })
+
+            alertify.success('Success');
+
+        }).fail(function () {
+            alertify.error('Fail');
+        })
+
+
+    }
 
     self.alertUserLinemanager = false;
     self.alertTargetsLinemanager = false;
