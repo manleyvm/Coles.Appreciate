@@ -9,37 +9,38 @@ namespace Coles.Appreciate.Web
         public static void RegisterBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                        "~/Content/libs/jquery/jquery-{version}.js"));
+                        "~/Scripts/jquery-{version}.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
-                        "~/Content/libs/jquery/jquery.validate*"));
+                        "~/Scripts/jquery.validate*"));
 
             // Use the development version of Modernizr to develop with and learn from. Then, when you're
             // ready for production, use the build tool at https://modernizr.com to pick only the tests you need.
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
-                        "~/Content/libs/modernizr/modernizr-*"));
+                        "~/Scripts/modernizr-*"));
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
-                      "~/Content/libs/bootstrap/bootstrap.js"));
+                      "~/Scripts/bootstrap.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/knockout").Include(
-                        "~/Content/libs/knockout/knockout-{version}.js"));
+                        "~/Scripts/knockout-{version}.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/autosize").Include(
-                        "~/Content/libs/autosize/autosize.js"));
+                        "~/Scripts/autosize/autosize.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/alertify").Include(
-                        "~/Content/libs/alertify/alertify.js"));
+                        "~/Scripts/alertify.js"));
 
-            bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/css/bootstrap.css",
+            bundles.Add(new StyleBundle("~/Content/general").Include(
                       "~/Content/css/site.css",
-                      "~/Content/css/app.css",
-                      "~/Content/css/alertifyjs/alertify.css",
-                      "~/Content/css/alertifyjs/themes/default.css"/*,
-                      "~/Content/css/alertify/themes/bootstrap.css"*/));
+                      "~/Content/css/app.css"));
 
-
+            bundles.Add(new StyleBundle("~/Content/alertify").Include(
+                      "~/Content/alertifyjs/alertify.css",
+                      "~/Content/alertifyjs/themes/default.css"));
+            
+            bundles.Add(new StyleBundle("~/Content/bootstrap").Include(
+                      "~/Content/bootstrap.css"));
 
 
         }

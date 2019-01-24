@@ -21,6 +21,7 @@ namespace Coles.Appreciate.Controllers
         public IHttpActionResult Get()
         {
 
+            System.Threading.Thread.Sleep(5000);
 
             //string[] vals = new string[] { "value1", "value2" };
             Coles.Appreciate.Domain.Response[] vals = new Coles.Appreciate.Domain.Response[] { new Coles.Appreciate.Domain.Response("hh","Jj"), new Coles.Appreciate.Domain.Response("dd", "ff") };

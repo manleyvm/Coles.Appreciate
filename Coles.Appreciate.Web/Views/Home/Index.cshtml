@@ -2,36 +2,6 @@
     ViewBag.Title = "Home Page";
 }
 
-<!--
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
-</div>
-
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
-    </div>
-</div>
-    -->
-
 
 <script type="text/html" id="reason-template">
     <div class="reasonCanvas" data-bind="click: $parent.reasonSelect.bind($data)">
@@ -43,7 +13,7 @@
 <script type="text/html" id="user-template">
     <div class="userCanvas">
         <div class="userIcon"><span data-bind="text: $data.UserId[0].toUpperCase()"></span></div>
-        <div class="userName"><span data-bind="text: $data.UserId"></span></div>
+        <div class="userName"><span data-bind="text: $data.UserId + ($data.unresolvedPotentials().length ? '(' + $data.unresolvedPotentials().length + ')' : '' )"></span></div>
     </div>
 </script>
 
@@ -59,7 +29,7 @@
 <div class="inputCanvas">
     <div><span data-bind="text: user().UserId + ' : ' + user().Response().ResponseId "></span>
     <button data-bind="click: responseReset()">Reset</button>
-    <button data-bind="click: getResponses">Responses</button>
+    <button class="btn btn-primary" data-bind="click: getResponses">Responses</button>
     </div>
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
         <path fill-rule="evenodd" d="M13.991 13.991c-.05.69-1.269 1-1.998 1H5.665l-1.669-1V7.995c1.36 0 2.11-.75 3.129-1.879 1.229-1.359 1.139-2.558.879-4.127-.08-.5.5-1 1-1 .829 0 1.998 2.729 1.998 3.998l-.02 1.03c0 .689.33.969 1.02.969H14c.63 0 .98.36 1 .999l-1 5.996-.01.01zm0-7.995h-2.018l.02-.98C11.992 3.719 10.822 0 8.993 0c-.58 0-1.169.3-1.559.77-.36.41-.5.909-.42 1.409.25 1.479.28 2.278-.629 3.278-1 1.089-1.48 1.549-2.389 1.549H2c-1.061-.01-2 .929-2 1.988v3.998c0 1.06.94 1.999 1.999 1.999h1.719l1.439.86c.16.089.33.139.52.139h6.325c1.13 0 2.839-.5 2.999-1.879l.979-5.946c.02-.08.02-.14.02-.2-.03-1.17-.84-1.969-1.999-1.969h-.01z"></path>
@@ -75,7 +45,7 @@
         </div>
         <div>
             alertTargetsLinemanager:
-            <input type="checkbox" data-bind="checked: alertTargetsLinemanager">
+            <input type="checkbox" data-bind="checked: alertTargetsLinemanager.value">
         </div>
 
         <div>
@@ -86,6 +56,8 @@
                         <div data-bind="template: {name:'user-template', data: $data}"></div>
                     </div>
                 </div>
+                <input type="text" class="form-control" data-bind="value: searchAlertUsers, event: {keyup: onEnterKey.bind({Event:event,function:getUserSearch,searchTerm:searchAlertUsers,searchAwaitingFlag:config.awaitingAlertUsers,searchResults
+:alertUsers})}" />
             </div>
 
 
@@ -99,21 +71,24 @@
                         <div data-bind="template: {name:'user-template', data: $data}"></div>
                     </div>
                 </div>
+                <input type="text" class="form-control" data-bind="value: searchSource, event: {keyup: onEnterKey.bind({Event:event,function:getUserSearch,searchTerm:searchSource,searchAwaitingFlag:config.awaitingSource,searchResults
+:sources})}" />
             </div>
         </div>
         <div>
             To:
             <!-- <ul data-bind="template: {name:'user-template', foreach: targets}">
-        <ul data-bind="foreach: targets">
-            <li><span data-bind="text: $data.UserId, click: $parent.teamMemberDeSelect.bind()"></span></li>
-        </ul>-->
+    <ul data-bind="foreach: targets">
+        <li><span data-bind="text: $data.UserId, click: $parent.teamMemberDeSelect.bind()"></span></li>
+    </ul>-->
 
-            <div class="userContainer" data-bind="foreach: targets">
-                <div data-bind="template: { name:'user-template'} ">
+            <div class="userContainer">
+                <div data-bind="template: { name:'user-template',foreach: targets} "></div>
+                <input type="text" class="form-control" data-bind="value: searchTarget, event: {keyup: onEnterKey.bind({Event:event,function:getUserSearch,searchTerm:searchTarget,searchAwaitingFlag:config.awaitingTarget,searchResults 
+:targets})}" />
 
-                </div>
             </div>
-
+            
 
         </div>
         <div>
@@ -160,10 +135,15 @@
 
                             -->
                 <div data-bind="template: { name:'response-template', foreach: responses }"></div>
-
             </div>
         </div>
         <!-- /ko -->
+        <!-- ko if: config.awaitingResponses -->
+        <div class="progress">
+            <div class="progress-bar progress-bar-striped progress-bar-animated" style="width: 100%"></div>
+        </div>
+        <!-- /ko -->
+
         <div>
             <p>Agrees:</p>
             <!-- <ul data-bind="template: {name:'user-template', foreach: targets}"> -->

@@ -10,7 +10,9 @@ function Person(UserId, FullName) {
     this.FirstName = null;
     this.LastName = null;
     this.LineManager = null;
-    this.Response = null ;//'1234'//ko.observable(new Response('init'));
+    this.Response = null;//'1234'//ko.observable(new Response('init'));
+    this.unresolved = ko.observable(false);
+    this.unresolvedPotentials = ko.observableArray();
 }
 
 function Reason(ReasonId,IsSelected){
@@ -32,15 +34,87 @@ var vm = function(){
     self.user = ko.observable(new Person('mvmanley'));
     self.user().Response = ko.observable(new Response(null));
     self.config = {
-        docMode: _MODE.RESPOND,
+        docMode: _MODE.CREATE,
         maxSelectableReasons: 3,
-        alertifyDefaultTimeout:1
+        alertifyDefaultTimeout: 1,
+        awaitingResponses: ko.observable(false),
+        awaitingTarget: ko.observable(false),
+        awaitingSource: ko.observable(false),
+        awaitingAlertUsers: ko.observable(false)
 
 
     }
 
+    self.onEnterKey = function () {
+        let data = this;
+
+        if (data.Event.keyCode == 13) {
+            data.function(data);
+        }
+        
+    }
+
+
+    self.getUserSearch = function (data) {
+
+        let url = "http://localhost:49930/api/v1/person/findUser?search=" + data.searchTerm()
+
+        data.searchAwaitingFlag(true);
+
+        $.get(url, function (resp) {
+            let unresolved = '';
+            let person = null;
+            let exists = false;
+            data.searchResults.length = 0;
+            ko.utils.arrayForEach(resp, function (rs) {
+
+                
+
+                if (rs.Results.length == 1) {
+                    exists = data.searchResults().some(function (obj) { return obj.UserId == rs.Results[0].UserId });
+                        if (!exists) {
+                            data.searchResults.push(new Person(rs.Results[0].UserId, rs.Results[0].UserName))
+                        }
+                    } else if (rs.Results.length) {
+
+                        person = new Person(rs.SearchTerm)
+                        person.unresolved(true);
+
+                        ko.utils.arrayForEach(rs.Results, function (ur) {
+                            person.unresolvedPotentials.push(new Person(rs.Results[0].UserId, rs.Results[0].UserName));
+
+                        });
+                        data.searchResults.push(person);
+                    } else {
+                        if (unresolved.length != 0) {
+                            unresolved += ','
+                        }
+                        unresolved += rs.SearchTerm;
+                    }
+
+            });
+
+            data.searchTerm(unresolved);
+            if (unresolved) {
+                alertify.warning('Some names unresolved');
+            } else {
+                alertify.success('Success');
+            }
+            
+
+        }).fail(function () {
+            alertify.error('Fail');
+        }).always(function () {
+
+            data.searchAwaitingFlag(false);
+        })
+
+    }
     self.getResponses = function () {
         let url = "http://localhost:49930/api/v1/config/big"
+
+        self.config.awaitingResponses(true);
+
         $.get(url, function (resp) {
 
             self.responses().length = 0;
@@ -52,13 +126,18 @@ var vm = function(){
 
         }).fail(function () {
             alertify.error('Fail');
-        })
+            }).always(function () {
+
+                self.config.awaitingResponses(false);
+            })
 
 
     }
-
+    self.searchTarget = ko.observable('init');
+    self.searchSource = ko.observable('mm');
+    self.searchAlertUsers = ko.observable('dd');
     self.alertUserLinemanager = false;
-    self.alertTargetsLinemanager = false;
+    self.alertTargetsLinemanager = { value: false, IsCurrent: false, LineManagers: [] };
     self.alertUsers = ko.observableArray();
     self.IsPrivate = true;  //Will not be seen by anyone outside of sources/targets lists
     self.comment = 'Great Work!';
@@ -177,5 +256,6 @@ var vm = function(){
 
 
 }
+
 
 ko.applyBindings(new vm());
