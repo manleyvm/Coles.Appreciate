@@ -1,0 +1,126 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="AppreciateDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Appreciations">
+          <Key>
+            <PropertyRef Name="AppreciationId" />
+          </Key>
+          <Property Name="AppreciationId" Type="int" Nullable="false" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ReasonTypes">
+          <Key>
+            <PropertyRef Name="ReasonId" />
+          </Key>
+          <Property Name="ReasonId" Type="int" Nullable="false" />
+          <Property Name="ReasonText" Type="nvarchar" MaxLength="50" />
+          <Property Name="create_date_time" Type="datetime" />
+          <Property Name="mod_date_time" Type="datetime" />
+          <Property Name="user_id" Type="nchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="ResponseTypes">
+          <Key>
+            <PropertyRef Name="ResponseId" />
+          </Key>
+          <Property Name="ResponseId" Type="int" Nullable="false" />
+          <Property Name="ResponseText" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityContainer Name="AppreciateDBModelStoreContainer">
+          <EntitySet Name="Appreciations" EntityType="Self.Appreciations" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ReasonTypes" EntityType="Self.ReasonTypes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ResponseTypes" EntityType="Self.ResponseTypes" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="AppreciateDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Appreciation">
+          <Key>
+            <PropertyRef Name="AppreciationId" />
+          </Key>
+          <Property Name="AppreciationId" Type="Int32" Nullable="false" />
+          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ReasonType">
+          <Key>
+            <PropertyRef Name="ReasonId" />
+          </Key>
+          <Property Name="ReasonId" Type="Int32" Nullable="false" />
+          <Property Name="ReasonText" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="create_date_time" Type="DateTime" Precision="3" />
+          <Property Name="mod_date_time" Type="DateTime" Precision="3" />
+          <Property Name="user_id" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
+        </EntityType>
+        <EntityType Name="ResponseType">
+          <Key>
+            <PropertyRef Name="ResponseId" />
+          </Key>
+          <Property Name="ResponseId" Type="Int32" Nullable="false" />
+          <Property Name="ResponseText" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityContainer Name="AppreciateDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Appreciations" EntityType="Self.Appreciation" />
+          <EntitySet Name="ReasonTypes" EntityType="Self.ReasonType" />
+          <EntitySet Name="ResponseTypes" EntityType="Self.ResponseType" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="AppreciateDBModelStoreContainer" CdmEntityContainer="AppreciateDBEntities">
+          <EntitySetMapping Name="Appreciations">
+            <EntityTypeMapping TypeName="AppreciateDBModel.Appreciation">
+              <MappingFragment StoreEntitySet="Appreciations">
+                <ScalarProperty Name="AppreciationId" ColumnName="AppreciationId" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ReasonTypes">
+            <EntityTypeMapping TypeName="AppreciateDBModel.ReasonType">
+              <MappingFragment StoreEntitySet="ReasonTypes">
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="mod_date_time" ColumnName="mod_date_time" />
+                <ScalarProperty Name="create_date_time" ColumnName="create_date_time" />
+                <ScalarProperty Name="ReasonId" ColumnName="ReasonId" />
+                <ScalarProperty Name="ReasonText" ColumnName="ReasonText" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ResponseTypes">
+            <EntityTypeMapping TypeName="AppreciateDBModel.ResponseType">
+              <MappingFragment StoreEntitySet="ResponseTypes">
+                <ScalarProperty Name="ResponseId" ColumnName="ResponseId" />
+                <ScalarProperty Name="ResponseText" ColumnName="ResponseText" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

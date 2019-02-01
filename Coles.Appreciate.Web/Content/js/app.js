@@ -1,7 +1,9 @@
 
-function Response(ResponseId,ResponseText) {
-    this.ResponseId = ResponseId;
-    this.ResponseText = ResponseText || null;
+function Response(obj) {
+    if (!obj)
+        obj = {};
+    this.ResponseId = obj.ResponseId || null;
+    this.ResponseText = obj.ResponseText || null;
 }
 
 function Person(UserId, FullName) {
@@ -15,9 +17,13 @@ function Person(UserId, FullName) {
     this.unresolvedPotentials = ko.observableArray();
 }
 
-function Reason(ReasonId,IsSelected){
-    this.ReasonId = ReasonId;
-    this.IsSelected = ko.observable(IsSelected || false);
+function Reason(obj) {
+    if (!obj)
+        obj = {};
+
+    this.ReasonId = obj.ReasonId || null;
+    this.ReasonText = obj.ReasonText || null;
+    this.IsSelected = ko.observable(obj.IsSelected || false);
 
 
 }
@@ -43,6 +49,11 @@ var vm = function(){
         awaitingAlertUsers: ko.observable(false)
 
 
+    }
+
+    self.resources = {
+        ResponseTypes: { awaiting: ko.observable(false), data: ko.observableArray([]) },
+        ReasonTypes: { awaiting: ko.observable(false), data: ko.observableArray([]) }
     }
 
     self.onEnterKey = function () {
@@ -110,16 +121,47 @@ var vm = function(){
         })
 
     }
-    self.getResponses = function () {
-        let url = "http://localhost:49930/api/v1/config/big"
 
-        self.config.awaitingResponses(true);
+    //http://localhost:49930/api/v1/ReasonTypes
 
+
+    self.getResponseTypes = function () {
+        let url = "http://localhost:49930/api/v1/ResponseTypes"
+        let resource = self.resources.ResponseTypes;
+
+        //self.config.awaitingResponses(true);
+        resource.awaiting(true);
         $.get(url, function (resp) {
 
             self.responses().length = 0;
-            ko.utils.arrayForEach(resp, function (rs) {
-                self.responses.push(new Response(rs.ResponseId, rs.ResponseText))
+            ko.utils.arrayForEach(resp, function (obj) {
+                resource.data.push(new Response(obj))
+            })
+
+            alertify.success('Success');
+
+        }).fail(function () {
+            alertify.error('Fail');
+        }).always(function () {
+
+            resource.awaiting(false);
+        })
+
+
+    }
+
+
+    self.getReasonTypes = function () {
+        let url = "http://localhost:49930/api/v1/ReasonTypes"
+        let resource = self.resources.ReasonTypes;
+
+        //self.config.awaitingResponses(true);
+        resource.awaiting(true);
+        $.get(url, function (resp) {
+
+            self.responses().length = 0;
+            ko.utils.arrayForEach(resp, function (obj) {
+                resource.data.push(new Reason(obj))
             })
 
             alertify.success('Success');
@@ -128,7 +170,7 @@ var vm = function(){
             alertify.error('Fail');
             }).always(function () {
 
-                self.config.awaitingResponses(false);
+                resource.awaiting(false);
             })
 
 
@@ -155,11 +197,12 @@ var vm = function(){
     self.targets.push(new Person('cellis'));
     self.targets.push(new Person('jzapantis'));
 
+    /*
     self.reasons.push(new Reason('helpful'));
     self.reasons.push(new Reason('professional'));
     self.reasons.push(new Reason('inspiring',true));
     self.reasons.push(new Reason('dedicated',true));
-
+    */
 
     self.teammembers.push(new Person('sgough'));
     self.teammembers.push(new Person('pmurray'));
@@ -169,20 +212,21 @@ var vm = function(){
     self.agrees.push(new Person('jsmith'));
     self.agrees.push(new Person('sprakash'));
 
+    /*
     self.responses.push(new Response('congrats'));
     self.responses.push(new Response('wellDone'));
     self.responses.push(new Response('amazing'));
     self.responses.push(new Response('thankyou'));
-
+    */
 
     self.reasonsSelected = ko.pureComputed(function(){
-        return ko.utils.arrayFilter(self.reasons(),function(reason){
+        return ko.utils.arrayFilter(self.resources.ReasonTypes.data(),function(reason){
             return reason.IsSelected();
         })
     });
 
     self.reasonsNotSelected = ko.pureComputed(function(){
-        return ko.utils.arrayFilter(self.reasons(),function(reason){
+        return ko.utils.arrayFilter(self.resources.ReasonTypes.data(),function(reason){
             return !reason.IsSelected();
         })
     });
