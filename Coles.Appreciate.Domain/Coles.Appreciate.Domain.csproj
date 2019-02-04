@@ -74,6 +74,9 @@
     <Compile Include="Models\Appreciation.cs">
       <DependentUpon>AppreciateDataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\AppreciationReason.cs">
+      <DependentUpon>AppreciateDataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\ReasonType.cs">
       <DependentUpon>AppreciateDataModel.tt</DependentUpon>
     </Compile>

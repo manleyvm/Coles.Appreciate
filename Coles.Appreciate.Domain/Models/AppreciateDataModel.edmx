@@ -5,6 +5,17 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="AppreciateDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AppreciationReasons">
+          <Key>
+            <PropertyRef Name="AppreciationId" />
+            <PropertyRef Name="ReasonId" />
+          </Key>
+          <Property Name="AppreciationId" Type="int" Nullable="false" />
+          <Property Name="ReasonId" Type="int" Nullable="false" />
+          <Property Name="created_by" Type="nchar" MaxLength="15" />
+          <Property Name="create_date_time" Type="datetime" />
+          <Property Name="mod_date_time" Type="datetime" />
+        </EntityType>
         <EntityType Name="Appreciations">
           <Key>
             <PropertyRef Name="AppreciationId" />
@@ -29,10 +40,27 @@
           <Property Name="ResponseId" Type="int" Nullable="false" />
           <Property Name="ResponseText" Type="nvarchar" MaxLength="50" />
         </EntityType>
+        <Association Name="FK_AppreciationReasons_Appreciations">
+          <End Role="Appreciations" Type="Self.Appreciations" Multiplicity="1" />
+          <End Role="AppreciationReasons" Type="Self.AppreciationReasons" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Appreciations">
+              <PropertyRef Name="AppreciationId" />
+            </Principal>
+            <Dependent Role="AppreciationReasons">
+              <PropertyRef Name="AppreciationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="AppreciateDBModelStoreContainer">
+          <EntitySet Name="AppreciationReasons" EntityType="Self.AppreciationReasons" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Appreciations" EntityType="Self.Appreciations" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ReasonTypes" EntityType="Self.ReasonTypes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ResponseTypes" EntityType="Self.ResponseTypes" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_AppreciationReasons_Appreciations" Association="Self.FK_AppreciationReasons_Appreciations">
+            <End Role="Appreciations" EntitySet="Appreciations" />
+            <End Role="AppreciationReasons" EntitySet="AppreciationReasons" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -44,6 +72,7 @@
           </Key>
           <Property Name="AppreciationId" Type="Int32" Nullable="false" />
           <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="AppreciationReasons" Relationship="AppreciateDBModel.FK_AppreciationReasons_Appreciations" FromRole="Appreciation" ToRole="AppreciationReason" />
         </EntityType>
         <EntityType Name="ReasonType">
           <Key>
@@ -66,7 +95,36 @@
           <EntitySet Name="Appreciations" EntityType="Self.Appreciation" />
           <EntitySet Name="ReasonTypes" EntityType="Self.ReasonType" />
           <EntitySet Name="ResponseTypes" EntityType="Self.ResponseType" />
+          <EntitySet Name="AppreciationReasons" EntityType="AppreciateDBModel.AppreciationReason" />
+          <AssociationSet Name="FK_AppreciationReasons_Appreciations" Association="AppreciateDBModel.FK_AppreciationReasons_Appreciations">
+            <End Role="Appreciation" EntitySet="Appreciations" />
+            <End Role="AppreciationReason" EntitySet="AppreciationReasons" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="AppreciationReason">
+          <Key>
+            <PropertyRef Name="AppreciationId" />
+            <PropertyRef Name="ReasonId" />
+          </Key>
+          <Property Name="AppreciationId" Type="Int32" Nullable="false" />
+          <Property Name="ReasonId" Type="Int32" Nullable="false" />
+          <Property Name="created_by" Type="String" MaxLength="15" FixedLength="true" Unicode="true" />
+          <Property Name="create_date_time" Type="DateTime" Precision="3" />
+          <Property Name="mod_date_time" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Appreciation" Relationship="AppreciateDBModel.FK_AppreciationReasons_Appreciations" FromRole="AppreciationReason" ToRole="Appreciation" />
+        </EntityType>
+        <Association Name="FK_AppreciationReasons_Appreciations">
+          <End Type="AppreciateDBModel.Appreciation" Role="Appreciation" Multiplicity="1" />
+          <End Type="AppreciateDBModel.AppreciationReason" Role="AppreciationReason" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Appreciation">
+              <PropertyRef Name="AppreciationId" />
+            </Principal>
+            <Dependent Role="AppreciationReason">
+              <PropertyRef Name="AppreciationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -97,6 +155,17 @@
               <MappingFragment StoreEntitySet="ResponseTypes">
                 <ScalarProperty Name="ResponseId" ColumnName="ResponseId" />
                 <ScalarProperty Name="ResponseText" ColumnName="ResponseText" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AppreciationReasons">
+            <EntityTypeMapping TypeName="AppreciateDBModel.AppreciationReason">
+              <MappingFragment StoreEntitySet="AppreciationReasons">
+                <ScalarProperty Name="mod_date_time" ColumnName="mod_date_time" />
+                <ScalarProperty Name="create_date_time" ColumnName="create_date_time" />
+                <ScalarProperty Name="created_by" ColumnName="created_by" />
+                <ScalarProperty Name="ReasonId" ColumnName="ReasonId" />
+                <ScalarProperty Name="AppreciationId" ColumnName="AppreciationId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

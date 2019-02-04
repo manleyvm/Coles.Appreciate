@@ -6,8 +6,10 @@
     <edmx:Diagrams>
       <Diagram DiagramId="8f28b54d6d3c4051ab6b0f37d219d7de" Name="Diagram1">
         <EntityTypeShape EntityType="AppreciateDBModel.Appreciation" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="AppreciateDBModel.ReasonType" Width="1.5" PointX="2.625" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="AppreciateDBModel.ResponseType" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AppreciateDBModel.ReasonType" Width="1.5" PointX="8" PointY="0.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="AppreciateDBModel.ResponseType" Width="1.5" PointX="5.875" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="AppreciateDBModel.AppreciationReason" Width="2.125" PointX="5.25" PointY="4.25" />
+        <AssociationConnector Association="AppreciateDBModel.FK_AppreciationReasons_Appreciations" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -52,6 +52,8 @@ var vm = function(){
     }
 
     self.resources = {
+        Save: { awaiting: ko.observable(false) },
+        Load: { awaiting: ko.observable(false) },
         ResponseTypes: { awaiting: ko.observable(false), data: ko.observableArray([]) },
         ReasonTypes: { awaiting: ko.observable(false), data: ko.observableArray([]) }
     }
@@ -150,6 +152,32 @@ var vm = function(){
 
     }
 
+    self.saveAppreciate = function () {
+        let url = "http://localhost:49930//api/v1/Appreciations"
+        let payload = {
+            AppreciationId: 0, CreatedBy: 'testera',
+            AppreciationReasons: []
+        };
+        let resource = self.resources.Save;
+        resource.awaiting(true);
+
+
+        ko.utils.arrayForEach(self.resources.ReasonTypes.data(), function (reason) {
+            reason.AppreciationId=0
+            payload.AppreciationReasons.push(reason);
+
+        });
+
+
+        $.post(url, payload, function (resp) {
+            alertify.success('Success');
+        }).fail(function (resp) {
+            alertify.error('Fail');
+        }).always(function () {
+
+            resource.awaiting(false);
+        })
+    }
 
     self.getReasonTypes = function () {
         let url = "http://localhost:49930/api/v1/ReasonTypes"
@@ -298,8 +326,46 @@ var vm = function(){
 
     }
 
+    self.getAppreciate = function () {
+        let url = "http://localhost:49930/api/v1/Appreciations/" + targetAppreciateId;
+        let resource = self.resources.Load;
 
+        //self.config.awaitingResponses(true);
+        resource.awaiting(true);
+        $.get(url, function (resp) {
+
+            let arr = [];
+
+            ko.utils.arrayForEach(resp.AppreciationReasons, function (obj) {
+                arr.push(obj.ReasonId);
+            });
+
+            let n = null;
+            ko.utils.arrayForEach(self.resources.ReasonTypes.data(), function (obj) {
+                if (arr.length) {
+                    n = arr.indexOf(obj.ReasonId);
+                    if (n != -1) {
+                        obj.IsSelected(true);
+                        arr.splice(n, 1);
+                    }
+                }
+            });
+
+
+
+            alertify.success('Success');
+
+        }).fail(function () {
+            alertify.error('Fail');
+        }).always(function () {
+
+            resource.awaiting(false);
+        })
+
+
+    }
 }
 
 
 ko.applyBindings(new vm());
+

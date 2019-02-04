@@ -15,7 +15,8 @@ namespace Coles.Appreciate.Domain.Models
 
     public partial class ReasonType
     {
-        [Key] public int ReasonId { get; set; }
+        [Key]
+        public int ReasonId { get; set; }
         public string ReasonText { get; set; }
         public Nullable<System.DateTime> create_date_time { get; set; }
         public Nullable<System.DateTime> mod_date_time { get; set; }

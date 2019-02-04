@@ -28,5 +28,6 @@ namespace Coles.Appreciate.Domain.Models
         public virtual DbSet<Appreciation> Appreciations { get; set; }
         public virtual DbSet<ReasonType> ReasonTypes { get; set; }
         public virtual DbSet<ResponseType> ResponseTypes { get; set; }
+        public virtual DbSet<AppreciationReason> AppreciationReasons { get; set; }
     }
 }

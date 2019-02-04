@@ -300,12 +300,13 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
+    <Compile Include="Controllers\AppreciationReasonsController.cs" />
+    <Compile Include="Controllers\AppreciationsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PersonController.cs" />
     <Compile Include="Controllers\ReasonTypesController.cs" />
     <Compile Include="Controllers\ResponseTypesController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
-    <Compile Include="Controllers\ConfigController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -320,6 +321,22 @@
     <Compile Include="Migrations\201902011003556_ResponseTypes01.cs" />
     <Compile Include="Migrations\201902011003556_ResponseTypes01.Designer.cs">
       <DependentUpon>201902011003556_ResponseTypes01.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201902031200083_Another02.cs" />
+    <Compile Include="Migrations\201902031200083_Another02.Designer.cs">
+      <DependentUpon>201902031200083_Another02.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201902031215408_Another03.cs" />
+    <Compile Include="Migrations\201902031215408_Another03.Designer.cs">
+      <DependentUpon>201902031215408_Another03.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201902031231591_Another04.cs" />
+    <Compile Include="Migrations\201902031231591_Another04.Designer.cs">
+      <DependentUpon>201902031231591_Another04.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201902041100104_Another09.cs" />
+    <Compile Include="Migrations\201902041100104_Another09.Designer.cs">
+      <DependentUpon>201902041100104_Another09.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ColesAppreciateContext.cs" />
@@ -441,6 +458,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201902011003556_ResponseTypes01.resx">
       <DependentUpon>201902011003556_ResponseTypes01.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902031200083_Another02.resx">
+      <DependentUpon>201902031200083_Another02.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902031215408_Another03.resx">
+      <DependentUpon>201902031215408_Another03.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902031231591_Another04.resx">
+      <DependentUpon>201902031231591_Another04.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902041100104_Another09.resx">
+      <DependentUpon>201902041100104_Another09.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

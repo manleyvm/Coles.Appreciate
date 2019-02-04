@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Validation;
 using System.Linq;
 using System.Web;
 
@@ -17,10 +18,18 @@ namespace Coles.Appreciate.Models
     
         public ColesAppreciateContext() : base("name=ColesAppreciateContext")
         {
+
+         //   this.Configuration.LazyLoadingEnabled = false;
+         //   this.Configuration.ProxyCreationEnabled = false;
+
         }
 
         public System.Data.Entity.DbSet<Coles.Appreciate.Domain.Models.ReasonType> ReasonTypes { get; set; }
 
         public System.Data.Entity.DbSet<Coles.Appreciate.Domain.Models.ResponseType> ResponseTypes { get; set; }
+
+        public System.Data.Entity.DbSet<Coles.Appreciate.Domain.Models.Appreciation> Appreciations { get; set; }
+
+        public System.Data.Entity.DbSet<Coles.Appreciate.Domain.Models.AppreciationReason> AppreciationReasons { get; set; }
     }
 }
