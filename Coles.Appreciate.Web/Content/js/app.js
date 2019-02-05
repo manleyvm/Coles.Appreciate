@@ -6,6 +6,12 @@ function Response(obj) {
     this.ResponseText = obj.ResponseText || null;
 }
 
+function Agree(obj) {
+    this.UserId = obj.UserId || null;
+    this.ResponseId = obj.ResponseId || null;
+    this.ResponseText = (this.ResponseId != null ? obj.ResponseType.ResponseText : null);
+}
+
 function Person(UserId, FullName) {
     this.UserId  = UserId;
     this.FullName = (FullName || null);
@@ -40,7 +46,7 @@ var vm = function(){
     self.user = ko.observable(new Person('mvmanley'));
     self.user().Response = ko.observable(new Response(null));
     self.config = {
-        docMode: _MODE.CREATE,
+        docMode: ko.observable(_MODE.CREATE),
         maxSelectableReasons: 3,
         alertifyDefaultTimeout: 1,
         awaitingResponses: ko.observable(false),
@@ -55,7 +61,8 @@ var vm = function(){
         Save: { awaiting: ko.observable(false) },
         Load: { awaiting: ko.observable(false) },
         ResponseTypes: { awaiting: ko.observable(false), data: ko.observableArray([]) },
-        ReasonTypes: { awaiting: ko.observable(false), data: ko.observableArray([]) }
+        ReasonTypes: { awaiting: ko.observable(false), data: ko.observableArray([]) },
+        Agrees: { awaiting: ko.observable(false), data: ko.observableArray([]) }
     }
 
     self.onEnterKey = function () {
@@ -135,7 +142,7 @@ var vm = function(){
         resource.awaiting(true);
         $.get(url, function (resp) {
 
-            self.responses().length = 0;
+            //resource.data.length = 0;
             ko.utils.arrayForEach(resp, function (obj) {
                 resource.data.push(new Response(obj))
             })
@@ -237,9 +244,10 @@ var vm = function(){
 
     self.alertUsers.push(new Person('czheng3'));
 
+    /*
     self.agrees.push(new Person('jsmith'));
     self.agrees.push(new Person('sprakash'));
-
+    */
     /*
     self.responses.push(new Response('congrats'));
     self.responses.push(new Response('wellDone'));
@@ -262,6 +270,8 @@ var vm = function(){
     
 
     self.reasonSelect = function (reason) {
+        if (config.docMode() == _MODE.RESPOND)
+            return;
         if (!reason.IsSelected() && self.reasonsSelected().length >= self.config.maxSelectableReasons) {
             alertify.warning('No more than ' + self.config.maxSelectableReasons + ' reasons can be selected.', self.config.alertifyDefaultTimeout);
 
@@ -324,12 +334,15 @@ var vm = function(){
 
         self.user().Response(new Response(null));
 
+        if (self.resources.ResponseTypes.data().length == 0)
+            self.getResponseTypes();
+
     }
 
     self.getAppreciate = function () {
         let url = "http://localhost:49930/api/v1/Appreciations/" + targetAppreciateId;
         let resource = self.resources.Load;
-
+        self.config.docMode(_MODE.RESPOND);
         //self.config.awaitingResponses(true);
         resource.awaiting(true);
         $.get(url, function (resp) {
@@ -337,9 +350,22 @@ var vm = function(){
             let arr = [];
 
             ko.utils.arrayForEach(resp.AppreciationReasons, function (obj) {
-                arr.push(obj.ReasonId);
+                obj.ReasonType.IsSelected = true;
+                self.resources.ReasonTypes.data.push(new Reason(obj.ReasonType))
             });
 
+
+            ko.utils.arrayForEach(resp.AppreciationAgrees, function (obj) {
+                //obj.ReasonType.IsSelected = true;
+
+                if (obj.UserId == self.user().UserId) {
+                    self.user().Response(new Agree(obj));
+                } else if (obj.ResponseId != null){
+                    self.resources.Agrees.data.push(new Agree(obj))
+                }
+
+            });
+            /*
             let n = null;
             ko.utils.arrayForEach(self.resources.ReasonTypes.data(), function (obj) {
                 if (arr.length) {
@@ -351,7 +377,7 @@ var vm = function(){
                 }
             });
 
-
+*/
 
             alertify.success('Success');
 

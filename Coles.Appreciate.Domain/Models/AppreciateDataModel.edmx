@@ -5,6 +5,16 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="AppreciateDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AppreciationAgrees">
+          <Key>
+            <PropertyRef Name="AppreciationId" />
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="AppreciationId" Type="int" Nullable="false" />
+          <Property Name="UserId" Type="nchar" MaxLength="15" Nullable="false" />
+          <Property Name="ResponseId" Type="int" />
+          <Property Name="mod_date_time" Type="datetime" />
+        </EntityType>
         <EntityType Name="AppreciationReasons">
           <Key>
             <PropertyRef Name="AppreciationId" />
@@ -40,6 +50,30 @@
           <Property Name="ResponseId" Type="int" Nullable="false" />
           <Property Name="ResponseText" Type="nvarchar" MaxLength="50" />
         </EntityType>
+        <Association Name="FK_AppreciateAgrees_Appreciations">
+          <End Role="Appreciations" Type="Self.Appreciations" Multiplicity="1" />
+          <End Role="AppreciationAgrees" Type="Self.AppreciationAgrees" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Appreciations">
+              <PropertyRef Name="AppreciationId" />
+            </Principal>
+            <Dependent Role="AppreciationAgrees">
+              <PropertyRef Name="AppreciationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AppreciateAgrees_ResponseTypes">
+          <End Role="ResponseTypes" Type="Self.ResponseTypes" Multiplicity="0..1" />
+          <End Role="AppreciationAgrees" Type="Self.AppreciationAgrees" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ResponseTypes">
+              <PropertyRef Name="ResponseId" />
+            </Principal>
+            <Dependent Role="AppreciationAgrees">
+              <PropertyRef Name="ResponseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_AppreciationReasons_Appreciations">
           <End Role="Appreciations" Type="Self.Appreciations" Multiplicity="1" />
           <End Role="AppreciationReasons" Type="Self.AppreciationReasons" Multiplicity="*" />
@@ -52,13 +86,38 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_AppreciationReasons_ReasonTypes">
+          <End Role="ReasonTypes" Type="Self.ReasonTypes" Multiplicity="1" />
+          <End Role="AppreciationReasons" Type="Self.AppreciationReasons" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ReasonTypes">
+              <PropertyRef Name="ReasonId" />
+            </Principal>
+            <Dependent Role="AppreciationReasons">
+              <PropertyRef Name="ReasonId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="AppreciateDBModelStoreContainer">
+          <EntitySet Name="AppreciationAgrees" EntityType="Self.AppreciationAgrees" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AppreciationReasons" EntityType="Self.AppreciationReasons" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Appreciations" EntityType="Self.Appreciations" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ReasonTypes" EntityType="Self.ReasonTypes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ResponseTypes" EntityType="Self.ResponseTypes" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_AppreciateAgrees_Appreciations" Association="Self.FK_AppreciateAgrees_Appreciations">
+            <End Role="Appreciations" EntitySet="Appreciations" />
+            <End Role="AppreciationAgrees" EntitySet="AppreciationAgrees" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AppreciateAgrees_ResponseTypes" Association="Self.FK_AppreciateAgrees_ResponseTypes">
+            <End Role="ResponseTypes" EntitySet="ResponseTypes" />
+            <End Role="AppreciationAgrees" EntitySet="AppreciationAgrees" />
+          </AssociationSet>
           <AssociationSet Name="FK_AppreciationReasons_Appreciations" Association="Self.FK_AppreciationReasons_Appreciations">
             <End Role="Appreciations" EntitySet="Appreciations" />
+            <End Role="AppreciationReasons" EntitySet="AppreciationReasons" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AppreciationReasons_ReasonTypes" Association="Self.FK_AppreciationReasons_ReasonTypes">
+            <End Role="ReasonTypes" EntitySet="ReasonTypes" />
             <End Role="AppreciationReasons" EntitySet="AppreciationReasons" />
           </AssociationSet>
         </EntityContainer>
@@ -73,6 +132,7 @@
           <Property Name="AppreciationId" Type="Int32" Nullable="false" />
           <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="AppreciationReasons" Relationship="AppreciateDBModel.FK_AppreciationReasons_Appreciations" FromRole="Appreciation" ToRole="AppreciationReason" />
+          <NavigationProperty Name="AppreciationAgrees" Relationship="AppreciateDBModel.FK_AppreciateAgrees_Appreciations" FromRole="Appreciation" ToRole="AppreciationAgree" />
         </EntityType>
         <EntityType Name="ReasonType">
           <Key>
@@ -100,6 +160,19 @@
             <End Role="Appreciation" EntitySet="Appreciations" />
             <End Role="AppreciationReason" EntitySet="AppreciationReasons" />
           </AssociationSet>
+          <AssociationSet Name="FK_AppreciationReasons_ReasonTypes" Association="AppreciateDBModel.FK_AppreciationReasons_ReasonTypes">
+            <End Role="ReasonType" EntitySet="ReasonTypes" />
+            <End Role="AppreciationReason" EntitySet="AppreciationReasons" />
+          </AssociationSet>
+          <EntitySet Name="AppreciationAgrees" EntityType="AppreciateDBModel.AppreciationAgree" />
+          <AssociationSet Name="FK_AppreciateAgrees_Appreciations" Association="AppreciateDBModel.FK_AppreciateAgrees_Appreciations">
+            <End Role="Appreciation" EntitySet="Appreciations" />
+            <End Role="AppreciationAgree" EntitySet="AppreciationAgrees" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AppreciateAgrees_ResponseTypes" Association="AppreciateDBModel.FK_AppreciateAgrees_ResponseTypes">
+            <End Role="ResponseType" EntitySet="ResponseTypes" />
+            <End Role="AppreciationAgree" EntitySet="AppreciationAgrees" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="AppreciationReason">
           <Key>
@@ -111,7 +184,7 @@
           <Property Name="created_by" Type="String" MaxLength="15" FixedLength="true" Unicode="true" />
           <Property Name="create_date_time" Type="DateTime" Precision="3" />
           <Property Name="mod_date_time" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="Appreciation" Relationship="AppreciateDBModel.FK_AppreciationReasons_Appreciations" FromRole="AppreciationReason" ToRole="Appreciation" />
+          <NavigationProperty Name="ReasonType" Relationship="AppreciateDBModel.FK_AppreciationReasons_ReasonTypes" FromRole="AppreciationReason" ToRole="ReasonType" />
         </EntityType>
         <Association Name="FK_AppreciationReasons_Appreciations">
           <End Type="AppreciateDBModel.Appreciation" Role="Appreciation" Multiplicity="1" />
@@ -122,6 +195,53 @@
             </Principal>
             <Dependent Role="AppreciationReason">
               <PropertyRef Name="AppreciationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AppreciationReasons_ReasonTypes">
+          <End Type="AppreciateDBModel.ReasonType" Role="ReasonType" Multiplicity="1" />
+          <End Type="AppreciateDBModel.AppreciationReason" Role="AppreciationReason" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ReasonType">
+              <PropertyRef Name="ReasonId" />
+            </Principal>
+            <Dependent Role="AppreciationReason">
+              <PropertyRef Name="ReasonId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="AppreciationAgree">
+          <Key>
+            <PropertyRef Name="AppreciationId" />
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="AppreciationId" Type="Int32" Nullable="false" />
+          <Property Name="UserId" Type="String" Nullable="false" MaxLength="15" FixedLength="true" Unicode="true" />
+          <Property Name="ResponseId" Type="Int32" />
+          <Property Name="mod_date_time" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="ResponseType" Relationship="AppreciateDBModel.FK_AppreciateAgrees_ResponseTypes" FromRole="AppreciationAgree" ToRole="ResponseType" />
+        </EntityType>
+        <Association Name="FK_AppreciateAgrees_Appreciations">
+          <End Type="AppreciateDBModel.Appreciation" Role="Appreciation" Multiplicity="1" />
+          <End Type="AppreciateDBModel.AppreciationAgree" Role="AppreciationAgree" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Appreciation">
+              <PropertyRef Name="AppreciationId" />
+            </Principal>
+            <Dependent Role="AppreciationAgree">
+              <PropertyRef Name="AppreciationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AppreciateAgrees_ResponseTypes">
+          <End Type="AppreciateDBModel.ResponseType" Role="ResponseType" Multiplicity="0..1" />
+          <End Type="AppreciateDBModel.AppreciationAgree" Role="AppreciationAgree" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ResponseType">
+              <PropertyRef Name="ResponseId" />
+            </Principal>
+            <Dependent Role="AppreciationAgree">
+              <PropertyRef Name="ResponseId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -165,6 +285,16 @@
                 <ScalarProperty Name="create_date_time" ColumnName="create_date_time" />
                 <ScalarProperty Name="created_by" ColumnName="created_by" />
                 <ScalarProperty Name="ReasonId" ColumnName="ReasonId" />
+                <ScalarProperty Name="AppreciationId" ColumnName="AppreciationId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AppreciationAgrees">
+            <EntityTypeMapping TypeName="AppreciateDBModel.AppreciationAgree">
+              <MappingFragment StoreEntitySet="AppreciationAgrees">
+                <ScalarProperty Name="mod_date_time" ColumnName="mod_date_time" />
+                <ScalarProperty Name="ResponseId" ColumnName="ResponseId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="AppreciationId" ColumnName="AppreciationId" />
               </MappingFragment>
             </EntityTypeMapping>

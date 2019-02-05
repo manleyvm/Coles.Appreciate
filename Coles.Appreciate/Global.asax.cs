@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Coles.Appreciate.Models;
+using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Http;
@@ -14,6 +16,9 @@ namespace Coles.Appreciate
     {
         protected void Application_Start()
         {
+
+
+            Database.SetInitializer<ColesAppreciateContext>(null);
             AreaRegistration.RegisterAllAreas();
             GlobalConfiguration.Configure(WebApiConfig.Register);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
@@ -22,9 +27,15 @@ namespace Coles.Appreciate
 
             HttpConfiguration config = GlobalConfiguration.Configuration;
 
+
+
+            /*
             config.Formatters.JsonFormatter
                         .SerializerSettings
-                        .ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+                        .ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;*/
+
+            //config.Formatters.JsonFormatter.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Serialize;
+           //config.Formatters.JsonFormatter.SerializerSettings.PreserveReferencesHandling= Newtonsoft.Json.PreserveReferencesHandling.Objects;
         }
     }
 }

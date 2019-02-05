@@ -40,6 +40,9 @@
     <Reference Include="EntityFramework.SqlServerCompact, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.SqlServerCompact.6.2.0\lib\net45\EntityFramework.SqlServerCompact.dll</HintPath>
     </Reference>
+    <Reference Include="Json.Net, Version=1.0.16.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Json.Net.1.0.16\lib\netstandard2.0\Json.Net.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -56,6 +59,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AppreciateDataModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -72,6 +76,9 @@
       <DependentUpon>AppreciateDataModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\Appreciation.cs">
+      <DependentUpon>AppreciateDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AppreciationAgree.cs">
       <DependentUpon>AppreciateDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\AppreciationReason.cs">

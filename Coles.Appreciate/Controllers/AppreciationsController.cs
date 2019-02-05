@@ -31,6 +31,7 @@ namespace Coles.Appreciate.Controllers
         [ResponseType(typeof(Appreciation))]
         public async Task<IHttpActionResult> GetAppreciation(int id)
         {
+
             Appreciation appreciation = await db.Appreciations.FindAsync(id);
             if (appreciation == null)
             {
@@ -38,7 +39,7 @@ namespace Coles.Appreciate.Controllers
             }
 
             //apprs = db.AppreciationReasons.Where(x => x.AppreciationId == id );
-            appreciation.AppreciationReasons = db.AppreciationReasons.Where(x => x.AppreciationId == id).ToList();
+            //appreciation.AppreciationReasons = db.AppreciationReasons.Where(x => x.AppreciationId == id).ToList();
 
             return Ok(appreciation);
         }

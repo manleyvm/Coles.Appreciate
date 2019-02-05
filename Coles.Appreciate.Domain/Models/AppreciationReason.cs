@@ -11,21 +11,19 @@ namespace Coles.Appreciate.Domain.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
-
+    
     public partial class AppreciationReason
     {
-        [Key]
-        [Column(Order = 1)]
+        [System.ComponentModel.DataAnnotations.Key]
+        [System.ComponentModel.DataAnnotations.Schema.Column(Order = 1)]
         public int AppreciationId { get; set; }
-        [Key]
-        [Column(Order = 2)]
+        [System.ComponentModel.DataAnnotations.Key]
+        [System.ComponentModel.DataAnnotations.Schema.Column(Order = 2)]
         public int ReasonId { get; set; }
         public string created_by { get; set; }
         public Nullable<System.DateTime> create_date_time { get; set; }
         public Nullable<System.DateTime> mod_date_time { get; set; }
     
-        public virtual Appreciation Appreciation { get; set; }
+        public virtual ReasonType ReasonType { get; set; }
     }
 }

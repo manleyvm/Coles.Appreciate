@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'C:\Users\manle\Source\Repos\manleyvm\Coles.Appreciate\Coles.Appreciate.Domain\Models\AppreciateDataModel.edmx'. 
+﻿// T4 code generation is enabled for model 'C:\Users\manle\source\repos\manleyvm\Coles.Appreciate\Coles.Appreciate.Domain\Models\AppreciateDataModel.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.

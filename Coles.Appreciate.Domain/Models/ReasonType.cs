@@ -11,11 +11,10 @@ namespace Coles.Appreciate.Domain.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class ReasonType
     {
-        [Key]
+        [System.ComponentModel.DataAnnotations.Key]
         public int ReasonId { get; set; }
         public string ReasonText { get; set; }
         public Nullable<System.DateTime> create_date_time { get; set; }
