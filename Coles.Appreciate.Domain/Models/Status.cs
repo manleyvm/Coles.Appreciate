@@ -12,10 +12,10 @@ namespace Coles.Appreciate.Domain.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class ResponseType
+    public partial class Status
     {
-        [System.ComponentModel.DataAnnotations.Key]
-        public int ResponseId { get; set; }
-        public string ResponseText { get; set; }
+        public int StatusId { get; set; }
+        public string StatusText { get; set; }
+        public int StatusCode { get; set; }
     }
 }

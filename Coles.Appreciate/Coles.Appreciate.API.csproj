@@ -300,46 +300,39 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
+    <Compile Include="Controllers\AppreciationAgreesController.cs" />
+    <Compile Include="Controllers\AppreciationController.cs" />
     <Compile Include="Controllers\AppreciationReasonsController.cs" />
-    <Compile Include="Controllers\AppreciationsController.cs" />
+    <Compile Include="Controllers\AppreciationTargetsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\PersonController.cs" />
-    <Compile Include="Controllers\ReasonTypesController.cs" />
-    <Compile Include="Controllers\ResponseTypesController.cs" />
-    <Compile Include="Controllers\ValuesController.cs" />
+    <Compile Include="Controllers\ReasonsController.cs" />
+    <Compile Include="Controllers\ResponsesController.cs" />
+    <Compile Include="Controllers\StatusController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201902010911519_Initial.cs" />
-    <Compile Include="Migrations\201902010911519_Initial.Designer.cs">
-      <DependentUpon>201902010911519_Initial.cs</DependentUpon>
+    <Compile Include="Migrations\201902061015032_m01.cs" />
+    <Compile Include="Migrations\201902061015032_m01.Designer.cs">
+      <DependentUpon>201902061015032_m01.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201902010919236_ReasonType01.cs" />
-    <Compile Include="Migrations\201902010919236_ReasonType01.Designer.cs">
-      <DependentUpon>201902010919236_ReasonType01.cs</DependentUpon>
+    <Compile Include="Migrations\201902061147042_m02.cs" />
+    <Compile Include="Migrations\201902061147042_m02.Designer.cs">
+      <DependentUpon>201902061147042_m02.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201902011003556_ResponseTypes01.cs" />
-    <Compile Include="Migrations\201902011003556_ResponseTypes01.Designer.cs">
-      <DependentUpon>201902011003556_ResponseTypes01.cs</DependentUpon>
+    <Compile Include="Migrations\201902061221016_m03.cs" />
+    <Compile Include="Migrations\201902061221016_m03.Designer.cs">
+      <DependentUpon>201902061221016_m03.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201902031200083_Another02.cs" />
-    <Compile Include="Migrations\201902031200083_Another02.Designer.cs">
-      <DependentUpon>201902031200083_Another02.cs</DependentUpon>
+    <Compile Include="Migrations\201902061227325_m04.cs" />
+    <Compile Include="Migrations\201902061227325_m04.Designer.cs">
+      <DependentUpon>201902061227325_m04.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201902031215408_Another03.cs" />
-    <Compile Include="Migrations\201902031215408_Another03.Designer.cs">
-      <DependentUpon>201902031215408_Another03.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201902031231591_Another04.cs" />
-    <Compile Include="Migrations\201902031231591_Another04.Designer.cs">
-      <DependentUpon>201902031231591_Another04.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201902041100104_Another09.cs" />
-    <Compile Include="Migrations\201902041100104_Another09.Designer.cs">
-      <DependentUpon>201902041100104_Another09.cs</DependentUpon>
+    <Compile Include="Migrations\201902061243187_m05.cs" />
+    <Compile Include="Migrations\201902061243187_m05.Designer.cs">
+      <DependentUpon>201902061243187_m05.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Models\ColesAppreciateContext.cs" />
+    <Compile Include="Models\ColesAppreciateDataContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -450,26 +443,20 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201902010911519_Initial.resx">
-      <DependentUpon>201902010911519_Initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201902061015032_m01.resx">
+      <DependentUpon>201902061015032_m01.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201902010919236_ReasonType01.resx">
-      <DependentUpon>201902010919236_ReasonType01.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201902061147042_m02.resx">
+      <DependentUpon>201902061147042_m02.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201902011003556_ResponseTypes01.resx">
-      <DependentUpon>201902011003556_ResponseTypes01.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201902061221016_m03.resx">
+      <DependentUpon>201902061221016_m03.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201902031200083_Another02.resx">
-      <DependentUpon>201902031200083_Another02.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201902061227325_m04.resx">
+      <DependentUpon>201902061227325_m04.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201902031215408_Another03.resx">
-      <DependentUpon>201902031215408_Another03.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201902031231591_Another04.resx">
-      <DependentUpon>201902031231591_Another04.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201902041100104_Another09.resx">
-      <DependentUpon>201902041100104_Another09.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201902061243187_m05.resx">
+      <DependentUpon>201902061243187_m05.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

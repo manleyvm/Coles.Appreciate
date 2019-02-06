@@ -18,7 +18,7 @@ namespace Coles.Appreciate
         {
 
 
-            Database.SetInitializer<ColesAppreciateContext>(null);
+            Database.SetInitializer<ColesAppreciateDataContext>(null);
             AreaRegistration.RegisterAllAreas();
             GlobalConfiguration.Configure(WebApiConfig.Register);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);

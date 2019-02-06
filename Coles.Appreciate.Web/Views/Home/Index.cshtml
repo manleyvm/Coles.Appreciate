@@ -116,9 +116,9 @@
         <div>
             To:
             <!-- <ul data-bind="template: {name:'user-template', foreach: targets}">
-            <ul data-bind="foreach: targets">
-                <li><span data-bind="text: $data.UserId, click: $parent.teamMemberDeSelect.bind()"></span></li>
-            </ul>-->
+        <ul data-bind="foreach: targets">
+            <li><span data-bind="text: $data.UserId, click: $parent.teamMemberDeSelect.bind()"></span></li>
+        </ul>-->
 
             <div class="userContainer">
                 <div data-bind="template: { name:'user-template',foreach: targets} "></div>
@@ -133,13 +133,13 @@
             Reason:
             <div class="reasonContainer">
                 <!--
-                <div data-bind="foreach: reasonsSelected()">
-                    <div class="reasonCanvas">
-                        <div class="reasonIconSpace"></div>
-                        <div><span data-bind="text: $data.ReasonId, click: $parent.reasonSelect.bind($data)"></span></div>
-                    </div>
+            <div data-bind="foreach: reasonsSelected()">
+                <div class="reasonCanvas">
+                    <div class="reasonIconSpace"></div>
+                    <div><span data-bind="text: $data.ReasonId, click: $parent.reasonSelect.bind($data)"></span></div>
                 </div>
-                    -->
+            </div>
+                -->
 
                 <div data-bind="template: { name:'reason-template', foreach: reasonsSelected() }"></div>
             </div>
@@ -169,13 +169,19 @@
             <p>Agrees:</p>
             <!-- <ul data-bind="template: {name:'user-template', foreach: targets}"> -->
             <!--
-            <ul data-bind="foreach: agrees">
-                <li><span data-bind="text: $data.UserId"></span></li>
-            </ul>
-            -->
+        <ul data-bind="foreach: agrees">
+            <li><span data-bind="text: $data.UserId"></span></li>
+        </ul>
+        -->
             <div class="userContainer" data-bind="template: {name:'agrees-template',foreach: resources.Agrees.data}"></div>
 
         </div>
+
+        <!-- ko if: resources.Load.awaiting -->
+        <div class="progress">
+            <div class="progress-bar progress-bar-striped progress-bar-animated" style="width: 100%"></div>
+        </div>
+        <!-- /ko -->
     </div>
 
     <script src="~/Content/js/app.js"></script>

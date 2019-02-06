@@ -7,13 +7,13 @@ namespace Coles.Appreciate.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class Another03 : IMigrationMetadata
+    public sealed partial class m01 : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(Another03));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(m01));
         
         string IMigrationMetadata.Id
         {
-            get { return "201902031215408_Another03"; }
+            get { return "201902061015032_m01"; }
         }
         
         string IMigrationMetadata.Source

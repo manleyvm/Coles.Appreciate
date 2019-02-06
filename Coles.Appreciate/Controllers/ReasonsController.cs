@@ -8,52 +8,50 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
-using System.Web.Http.Cors;
 using System.Web.Http.Description;
 using Coles.Appreciate.Domain.Models;
 using Coles.Appreciate.Models;
 
 namespace Coles.Appreciate.Controllers
 {
-    [EnableCors(origins: "*", headers: "*", methods: "*")]
-    public class ReasonTypesController : ApiController
+    public class ReasonsController : ApiController
     {
-        private ColesAppreciateContext db = new ColesAppreciateContext();
+        private ColesAppreciateDataContext db = new ColesAppreciateDataContext();
 
-        // GET: api/ReasonTypes
-        public IQueryable<ReasonType> GetReasonTypes()
+        // GET: api/Reasons
+        public IQueryable<Reason> GetReasons()
         {
-            return db.ReasonTypes;
+            return db.Reasons;
         }
 
-        // GET: api/ReasonTypes/5
-        [ResponseType(typeof(ReasonType))]
-        public async Task<IHttpActionResult> GetReasonType(int id)
+        // GET: api/Reasons/5
+        [ResponseType(typeof(Reason))]
+        public async Task<IHttpActionResult> GetReason(int id)
         {
-            ReasonType reasonType = await db.ReasonTypes.FindAsync(id);
-            if (reasonType == null)
+            Reason reason = await db.Reasons.FindAsync(id);
+            if (reason == null)
             {
                 return NotFound();
             }
 
-            return Ok(reasonType);
+            return Ok(reason);
         }
 
-        // PUT: api/ReasonTypes/5
+        // PUT: api/Reasons/5
         [ResponseType(typeof(void))]
-        public async Task<IHttpActionResult> PutReasonType(int id, ReasonType reasonType)
+        public async Task<IHttpActionResult> PutReason(int id, Reason reason)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != reasonType.ReasonId)
+            if (id != reason.ReasonId)
             {
                 return BadRequest();
             }
 
-            db.Entry(reasonType).State = EntityState.Modified;
+            db.Entry(reason).State = EntityState.Modified;
 
             try
             {
@@ -61,7 +59,7 @@ namespace Coles.Appreciate.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!ReasonTypeExists(id))
+                if (!ReasonExists(id))
                 {
                     return NotFound();
                 }
@@ -74,35 +72,35 @@ namespace Coles.Appreciate.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // POST: api/ReasonTypes
-        [ResponseType(typeof(ReasonType))]
-        public async Task<IHttpActionResult> PostReasonType(ReasonType reasonType)
+        // POST: api/Reasons
+        [ResponseType(typeof(Reason))]
+        public async Task<IHttpActionResult> PostReason(Reason reason)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            db.ReasonTypes.Add(reasonType);
+            db.Reasons.Add(reason);
             await db.SaveChangesAsync();
 
-            return CreatedAtRoute("DefaultApi", new { id = reasonType.ReasonId }, reasonType);
+            return CreatedAtRoute("DefaultApi", new { id = reason.ReasonId }, reason);
         }
 
-        // DELETE: api/ReasonTypes/5
-        [ResponseType(typeof(ReasonType))]
-        public async Task<IHttpActionResult> DeleteReasonType(int id)
+        // DELETE: api/Reasons/5
+        [ResponseType(typeof(Reason))]
+        public async Task<IHttpActionResult> DeleteReason(int id)
         {
-            ReasonType reasonType = await db.ReasonTypes.FindAsync(id);
-            if (reasonType == null)
+            Reason reason = await db.Reasons.FindAsync(id);
+            if (reason == null)
             {
                 return NotFound();
             }
 
-            db.ReasonTypes.Remove(reasonType);
+            db.Reasons.Remove(reason);
             await db.SaveChangesAsync();
 
-            return Ok(reasonType);
+            return Ok(reason);
         }
 
         protected override void Dispose(bool disposing)
@@ -114,9 +112,9 @@ namespace Coles.Appreciate.Controllers
             base.Dispose(disposing);
         }
 
-        private bool ReasonTypeExists(int id)
+        private bool ReasonExists(int id)
         {
-            return db.ReasonTypes.Count(e => e.ReasonId == id) > 0;
+            return db.Reasons.Count(e => e.ReasonId == id) > 0;
         }
     }
 }

@@ -14,15 +14,12 @@ namespace Coles.Appreciate.Domain.Models
     
     public partial class AppreciationAgree
     {
-        [System.ComponentModel.DataAnnotations.Key]
-        [System.ComponentModel.DataAnnotations.Schema.Column(Order = 1)]
+        public int AppreciationAgreeId { get; set; }
         public int AppreciationId { get; set; }
-        [System.ComponentModel.DataAnnotations.Key]
-        [System.ComponentModel.DataAnnotations.Schema.Column(Order = 2)]
         public string UserId { get; set; }
         public Nullable<int> ResponseId { get; set; }
         public Nullable<System.DateTime> mod_date_time { get; set; }
     
-        public virtual ResponseType ResponseType { get; set; }
+        public virtual Response Response { get; set; }
     }
 }

@@ -16,7 +16,7 @@ namespace Coles.Appreciate.Controllers
 {
     public class AppreciationReasonsController : ApiController
     {
-        private ColesAppreciateContext db = new ColesAppreciateContext();
+        private ColesAppreciateDataContext db = new ColesAppreciateDataContext();
 
         // GET: api/AppreciationReasons
         public IQueryable<AppreciationReason> GetAppreciationReasons()
@@ -46,7 +46,7 @@ namespace Coles.Appreciate.Controllers
                 return BadRequest(ModelState);
             }
 
-            if (id != appreciationReason.AppreciationId)
+            if (id != appreciationReason.AppreciationReasonId)
             {
                 return BadRequest();
             }
@@ -82,24 +82,9 @@ namespace Coles.Appreciate.Controllers
             }
 
             db.AppreciationReasons.Add(appreciationReason);
+            await db.SaveChangesAsync();
 
-            try
-            {
-                await db.SaveChangesAsync();
-            }
-            catch (DbUpdateException)
-            {
-                if (AppreciationReasonExists(appreciationReason.AppreciationId))
-                {
-                    return Conflict();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return CreatedAtRoute("DefaultApi", new { id = appreciationReason.AppreciationId }, appreciationReason);
+            return CreatedAtRoute("DefaultApi", new { id = appreciationReason.AppreciationReasonId }, appreciationReason);
         }
 
         // DELETE: api/AppreciationReasons/5
@@ -129,7 +114,7 @@ namespace Coles.Appreciate.Controllers
 
         private bool AppreciationReasonExists(int id)
         {
-            return db.AppreciationReasons.Count(e => e.AppreciationId == id) > 0;
+            return db.AppreciationReasons.Count(e => e.AppreciationReasonId == id) > 0;
         }
     }
 }

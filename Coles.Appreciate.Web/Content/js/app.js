@@ -9,7 +9,7 @@ function Response(obj) {
 function Agree(obj) {
     this.UserId = obj.UserId || null;
     this.ResponseId = obj.ResponseId || null;
-    this.ResponseText = (this.ResponseId != null ? obj.ResponseType.ResponseText : null);
+    this.ResponseText = (this.ResponseId != null ? obj.Response.ResponseText : null);
 }
 
 function Person(UserId, FullName) {
@@ -135,7 +135,7 @@ var vm = function(){
 
 
     self.getResponseTypes = function () {
-        let url = "http://localhost:49930/api/v1/ResponseTypes"
+        let url = "http://localhost:49930/api/v1/Responses"
         let resource = self.resources.ResponseTypes;
 
         //self.config.awaitingResponses(true);
@@ -340,7 +340,7 @@ var vm = function(){
     }
 
     self.getAppreciate = function () {
-        let url = "http://localhost:49930/api/v1/Appreciations/" + targetAppreciateId;
+        let url = "http://localhost:49930/api/v1/Appreciation/" + targetAppreciateId;
         let resource = self.resources.Load;
         self.config.docMode(_MODE.RESPOND);
         //self.config.awaitingResponses(true);
@@ -349,13 +349,13 @@ var vm = function(){
 
             let arr = [];
 
-            ko.utils.arrayForEach(resp.AppreciationReasons, function (obj) {
-                obj.ReasonType.IsSelected = true;
-                self.resources.ReasonTypes.data.push(new Reason(obj.ReasonType))
+            ko.utils.arrayForEach(resp.AppreciationReason, function (obj) {
+                obj.Reason.IsSelected = true;
+                self.resources.ReasonTypes.data.push(new Reason(obj.Reason))
             });
 
 
-            ko.utils.arrayForEach(resp.AppreciationAgrees, function (obj) {
+            ko.utils.arrayForEach(resp.AppreciationAgree, function (obj) {
                 //obj.ReasonType.IsSelected = true;
 
                 if (obj.UserId == self.user().UserId) {
@@ -365,6 +365,10 @@ var vm = function(){
                 }
 
             });
+
+            if (self.user().Response().ResponseId==null) 
+                self.getResponseTypes()
+            
             /*
             let n = null;
             ko.utils.arrayForEach(self.resources.ReasonTypes.data(), function (obj) {

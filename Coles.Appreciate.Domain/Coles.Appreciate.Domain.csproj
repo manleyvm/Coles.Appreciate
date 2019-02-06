@@ -84,10 +84,16 @@
     <Compile Include="Models\AppreciationReason.cs">
       <DependentUpon>AppreciateDataModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\ReasonType.cs">
+    <Compile Include="Models\AppreciationTarget.cs">
       <DependentUpon>AppreciateDataModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\ResponseType.cs">
+    <Compile Include="Models\Reason.cs">
+      <DependentUpon>AppreciateDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Response.cs">
+      <DependentUpon>AppreciateDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Status.cs">
       <DependentUpon>AppreciateDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Person.cs" />

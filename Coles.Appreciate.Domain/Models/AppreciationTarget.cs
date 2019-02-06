@@ -12,13 +12,10 @@ namespace Coles.Appreciate.Domain.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class ReasonType
+    public partial class AppreciationTarget
     {
-        [System.ComponentModel.DataAnnotations.Key]
-        public int ReasonId { get; set; }
-        public string ReasonText { get; set; }
-        public Nullable<System.DateTime> create_date_time { get; set; }
-        public Nullable<System.DateTime> mod_date_time { get; set; }
-        public string user_id { get; set; }
+        public int AppreciationTargetId { get; set; }
+        public int AppreciationId { get; set; }
+        public string UserId { get; set; }
     }
 }

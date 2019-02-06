@@ -17,17 +17,22 @@ namespace Coles.Appreciate.Domain.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Appreciation()
         {
-            this.AppreciationReasons = new HashSet<AppreciationReason>();
-            this.AppreciationAgrees = new HashSet<AppreciationAgree>();
+            this.AppreciationReason = new HashSet<AppreciationReason>();
+            this.AppreciationTarget = new HashSet<AppreciationTarget>();
+            this.AppreciationAgree = new HashSet<AppreciationAgree>();
         }
-
-        [System.ComponentModel.DataAnnotations.Key]
+    
         public int AppreciationId { get; set; }
-        public string CreatedBy { get; set; }
+        public string AppreciationText { get; set; }
+        public string SourceUserId { get; set; }
+        public Nullable<int> StatusId { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<AppreciationReason> AppreciationReasons { get; set; }
+        public virtual ICollection<AppreciationReason> AppreciationReason { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<AppreciationAgree> AppreciationAgrees { get; set; }
+        public virtual ICollection<AppreciationTarget> AppreciationTarget { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<AppreciationAgree> AppreciationAgree { get; set; }
+        public virtual Status Status { get; set; }
     }
 }

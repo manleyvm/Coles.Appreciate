@@ -3,18 +3,16 @@ namespace Coles.Appreciate.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class Another03 : DbMigration
+    public partial class m05 : DbMigration
     {
         public override void Up()
         {
-            string sql01 = "CREATE SEQUENCE [dbo].[AppreciateId_Seq] AS INT START WITH 1000 INCREMENT BY 1 NO MAXVALUE NO CYCLE CACHE 10";
-
-            Sql(sql01);
-
+            AddColumn("dbo.Status", "StatusCode", c => c.Int(nullable: false));
         }
         
         public override void Down()
         {
+            DropColumn("dbo.Status", "StatusCode");
         }
     }
 }

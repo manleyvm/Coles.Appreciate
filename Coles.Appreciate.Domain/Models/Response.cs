@@ -12,15 +12,9 @@ namespace Coles.Appreciate.Domain.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class AppreciationReason
+    public partial class Response
     {
-        public int AppreciationReasonId { get; set; }
-        public int AppreciationId { get; set; }
-        public int ReasonId { get; set; }
-        public string created_by { get; set; }
-        public Nullable<System.DateTime> create_date_time { get; set; }
-        public Nullable<System.DateTime> mod_date_time { get; set; }
-    
-        public virtual Reason Reason { get; set; }
+        public int ResponseId { get; set; }
+        public string ResponseText { get; set; }
     }
 }
